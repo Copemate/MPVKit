@@ -10,10 +10,6 @@ let package = Package(
             name: "MPVKit",
             targets: ["_MPVKit"]
         ),
-        .library(
-            name: "MPVKit-GPL",
-            targets: ["_MPVKit-GPL"]
-        ),
     ],
     targets: [
         .target(
@@ -53,84 +49,7 @@ let package = Package(
                 .linkedLibrary("c++"),
             ]
         ),
-        .target(
-            name: "_MPVKit-GPL",
-            dependencies: [
-                "Libmpv-GPL", "_FFmpeg-GPL", "Libuchardet", "Libbluray",
-                .target(name: "Libluajit", condition: .when(platforms: [.macOS])),
-            ],
-            path: "Sources/_MPVKit-GPL",
-            linkerSettings: [
-                .linkedFramework("AVFoundation"),
-                .linkedFramework("CoreAudio"),
-            ]
-        ),
-        .target(
-            name: "_FFmpeg-GPL",
-            dependencies: [
-                "Libavcodec-GPL", "Libavdevice-GPL", "Libavfilter-GPL", "Libavformat-GPL", "Libavutil-GPL", "Libswresample-GPL", "Libswscale-GPL",
-                "Libssl", "Libcrypto", "Libass", "Libfreetype", "Libfribidi", "Libharfbuzz",
-                "MoltenVK", "Libshaderc_combined", "lcms2", "Libplacebo", "Libdovi", "Libunibreak",
-                "Libsmbclient", "gmp", "nettle", "hogweed", "gnutls", "Libdav1d", "Libuavs3d"
-            ],
-            path: "Sources/_FFmpeg-GPL",
-            linkerSettings: [
-                .linkedFramework("AudioToolbox"),
-                .linkedFramework("CoreVideo"),
-                .linkedFramework("CoreFoundation"),
-                .linkedFramework("CoreMedia"),
-                .linkedFramework("Metal"),
-                .linkedFramework("VideoToolbox"),
-                .linkedLibrary("bz2"),
-                .linkedLibrary("iconv"),
-                .linkedLibrary("expat"),
-                .linkedLibrary("resolv"),
-                .linkedLibrary("xml2"),
-                .linkedLibrary("z"),
-                .linkedLibrary("c++"),
-            ]
-        ),
 
-        .binaryTarget(
-            name: "Libmpv-GPL",
-            url: "https://github.com/mpvkit/MPVKit/releases/download/0.40.0-xcode/Libmpv-GPL.xcframework.zip",
-            checksum: "6f3994f5189f54f4a1533dc6cf9da12deba1262e2dc3f3164a05271b557bff56"
-        ),
-        .binaryTarget(
-            name: "Libavcodec-GPL",
-            url: "https://github.com/mpvkit/MPVKit/releases/download/0.40.0-xcode/Libavcodec-GPL.xcframework.zip",
-            checksum: "d7a6a3aa94ae7e5481fb30eed6aa60df0473aba29ac5efeda408f7382a09cb42"
-        ),
-        .binaryTarget(
-            name: "Libavdevice-GPL",
-            url: "https://github.com/mpvkit/MPVKit/releases/download/0.40.0-xcode/Libavdevice-GPL.xcframework.zip",
-            checksum: "f05972f499502a2fde99d6b4eb0230fdac36f85638a840d9df6ed4f579258a24"
-        ),
-        .binaryTarget(
-            name: "Libavformat-GPL",
-            url: "https://github.com/mpvkit/MPVKit/releases/download/0.40.0-xcode/Libavformat-GPL.xcframework.zip",
-            checksum: "27cb570630f5ff7b17fe11e7846fff880822bb01033d9d9e9d6319bb40c4b924"
-        ),
-        .binaryTarget(
-            name: "Libavfilter-GPL",
-            url: "https://github.com/mpvkit/MPVKit/releases/download/0.40.0-xcode/Libavfilter-GPL.xcframework.zip",
-            checksum: "d3177ecb4b7d7c6cfc387667150099db0d87be6bada2e53813e0bad4bd12486e"
-        ),
-        .binaryTarget(
-            name: "Libavutil-GPL",
-            url: "https://github.com/mpvkit/MPVKit/releases/download/0.40.0-xcode/Libavutil-GPL.xcframework.zip",
-            checksum: "2cf798b085bd85303abf3bd6dcb2eb6600f25be6c797f0585d549408e64a8ab7"
-        ),
-        .binaryTarget(
-            name: "Libswresample-GPL",
-            url: "https://github.com/mpvkit/MPVKit/releases/download/0.40.0-xcode/Libswresample-GPL.xcframework.zip",
-            checksum: "ae95cef50f286a69cfff6ef9e62a80a87daa599232c05ee0d59c732098c62313"
-        ),
-        .binaryTarget(
-            name: "Libswscale-GPL",
-            url: "https://github.com/mpvkit/MPVKit/releases/download/0.40.0-xcode/Libswscale-GPL.xcframework.zip",
-            checksum: "76bf42006160c563cf16501de2bb7e507e4da5a46c5b9d7361f75a68f40c207e"
-        ),
         //AUTO_GENERATE_TARGETS_BEGIN//
 
         .binaryTarget(
