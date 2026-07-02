@@ -218,9 +218,10 @@ let package = Package(
             checksum: "8e76f267ee100ff5f3bbde7641b2240566df722241cdf8e135be7ef3d29e237a"
         ),
 
-          .binaryTarget(
-            name: "Libmpv",
-            path: "dist/release/Libmpv.xcframework.zip"
+        .binaryTarget(
+          name: "Libmpv",
+          url: "https://github.com/Copemate/MPVKit/releases/download/0.40.1/Libmpv.xcframework.zip",
+          checksum: "095b752a2edcf70c35fd84b4e552a11ef06663d27ac1a322af9afd7bc4ef7e61"
           ),
         //AUTO_GENERATE_TARGETS_END//
     ]
