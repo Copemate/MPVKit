@@ -61,7 +61,7 @@ new file mode 100644
 index 0000000000000000000000000000000000000000..445b907f795b24b8df80389394d4ae7b3f94c6e5
 --- /dev/null
 +++ forkDstPrefix/video/out/vulkan/context_moltenvk.m
-@@ -0,0 +1,96 @@
+@@ -0,0 +1,110 @@
 +/*
 + * This file is part of mpv.
 + *
@@ -90,6 +90,7 @@ index 0000000000000000000000000000000000000000..445b907f795b24b8df80389394d4ae7b
 +struct priv {
 +    struct mpvk_ctx vk;
 +    CAMetalLayer *layer;
++    CGSize last_size;
 +};
 +
 +static void moltenvk_uninit(struct ra_ctx *ctx)
@@ -114,6 +115,7 @@ index 0000000000000000000000000000000000000000..445b907f795b24b8df80389394d4ae7b
 +        goto fail;
 +
 +    p->layer = (__bridge CAMetalLayer *)(intptr_t)ctx->vo->opts->WinID;
++    p->last_size = p->layer.drawableSize;
 +    VkMetalSurfaceCreateInfoEXT info = {
 +         .sType = VK_STRUCTURE_TYPE_METAL_SURFACE_CREATE_INFO_EXT,
 +         .pLayer = p->layer,
@@ -147,6 +149,18 @@ index 0000000000000000000000000000000000000000..445b907f795b24b8df80389394d4ae7b
 +
 +static int moltenvk_control(struct ra_ctx *ctx, int *events, int request, void *arg)
 +{
++    struct priv *p = ctx->priv;
++    
++    if (request == VOCTRL_CHECK_EVENTS) {
++        CGSize current_size = p->layer.drawableSize;
++        if (!CGSizeEqualToSize(current_size, p->last_size)) {
++            p->last_size = current_size;
++            *events |= VO_EVENT_RESIZE;
++            moltenvk_reconfig(ctx);
++        }
++        return VO_TRUE;
++    }
++    
 +    return VO_NOTIMPL;
 +}
 +
